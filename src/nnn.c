@@ -730,7 +730,7 @@ static void *xmemrchr(uchar *s, uchar ch, size_t n)
 
 static char *xbasename(char *path)
 {
-	char *base = xmemrchr((uchar *)path, '/', strlen(path));
+	char *base = xmemrchr((uchar *)path, '/', strlen(path)); // NOLINT
 
 	return base ? base + 1 : path;
 }
@@ -1845,7 +1845,7 @@ static size_t mkpath(char *dir, char *name, char *out)
 	else
 		len = xstrlcpy(out, dir, PATH_MAX);
 
-	out[len - 1] = '/';
+	out[len - 1] = '/'; // NOLINT
 	return (xstrlcpy(out + len, name, PATH_MAX - len) + len);
 }
 
@@ -2798,8 +2798,7 @@ static int dentfill(char *path, struct entry **dents)
 				num_saved = num_files + 1;
 				mkpath(path, namep, buf);
 
-				mvprintw(xlines - 1, 0, "scanning %s [^C aborts]\n",
-					 xbasename(buf));
+				mvprintw(xlines - 1, 0, "scanning %s [^C aborts]\n", xbasename(buf));
 				refresh();
 				if (nftw(buf, nftw_fn, open_max, FTW_MOUNT | FTW_PHYS) == -1) {
 					DPRINTF_S("nftw failed");
