@@ -296,8 +296,6 @@ static size_t g_tmpfplen;
 static uchar g_crc;
 static uchar BLK_SHIFT = 9;
 static bool interrupted = FALSE;
-static const uint _WSHIFT = (LONG_SIZE == 8) ? 3 : 2;
-
 
 /* Retain old signal handlers */
 #ifdef __linux__
@@ -662,6 +660,8 @@ static size_t xstrlcpy(char *dest, const char *src, size_t n)
 
 	ulong *s, *d;
 	size_t len = strlen(src) + 1, blocks;
+	const uint _WSHIFT = (LONG_SIZE == 8) ? 3 : 2;
+
 
 	if (n > len)
 		n = len;
